@@ -18,6 +18,17 @@ class ScoreSpec extends AnyFunSuite {
       val test: IO[Int] = testGame(List.fill(12)(10))
       assert(test.unsafeRunSync() === 300)
   }
+
+  test("ten pairs of 9 and miss") {
+    val test: IO[Int] = testGame(List.fill(10)(List(9,0)).flatten)
+    assert(test.unsafeRunSync() === 90)
+  }
+
+  test("ten pairs of 5 and spare, with a final 5") {
+    val test: IO[Int] = testGame(List.fill(21)(5))
+    assert(test.unsafeRunSync() === 150)
+  }
+
 }
 
 
