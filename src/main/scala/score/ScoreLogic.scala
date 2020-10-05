@@ -42,7 +42,8 @@ object ScoreLogic {
         case OpenFrame(a,b)::rest => score(rest, b::a::partial, extra)
         case Spare(fst)::rest => score(rest, (10-fst)::fst::partial, extra + partial.headOption.getOrElse(0))
         case Strike::rest => score(rest, 10::partial, extra + partial.take(2).sum)
-        case _ => extra :: partial
+        case Nil => extra :: partial
+        case FillBall(_,_)::_ => List(-1) //should not happen
       }
     }
 
